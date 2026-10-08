@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tyto Design System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single column of labelled sections; phone mockups sit in a wrapping row.
+   Palette: obsidian ground, electric crimson accent, stark white type. */
+:root {
+  --obsidian: #07070A;
+  --panel: #0E0E14;
+  --line: #22222C;
+  --crimson: #FF1D4E;
+  --crimson-dim: #7A0F2A;
+  --white: #F4F4F6;
+  --mute: #8B8B98;
+  --display: "Rajdhani", "Arial Narrow", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--obsidian);
+  color: var(--white);
+  font-family: var(--display);
+  font-size: 15px;
+  padding-block: 32px;
+  padding-inline: 16px;
+}
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--crimson);
+  margin: 0 0 16px;
+}
+section { margin-bottom: 56px; }
+.label { font-family: var(--mono); font-size: 11px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Brand header */
+.hero {
+  position: relative;
+  border: 1px solid var(--line);
+  padding: 40px 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,29,78,.28), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(255,255,255,.04) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(255,255,255,.04) 23px 24px),
+    var(--obsidian);
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  text-align: center;
+}
+.hero .owl { width: 120px; height: 120px; filter: drop-shadow(0 0 18px rgba(255,29,78,.6)); }
+.wordmark { font-weight: 700; font-size: 44px; letter-spacing: .42em; margin: 0; padding-left: .42em; }
+.tagline { color: var(--mute); font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.laser {
+  position: absolute; left: 0; right: 0; height: 2px; top: 0;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+  box-shadow: 0 0 12px var(--crimson);
+  animation: scan 3.2s cubic-bezier(.6,0,.2,1) infinite;
+}
+@keyframes scan { 0% { top: 0 } 100% { top: 100% } }
+
+/* Phones */
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.phone {
+  width: 280px; max-width: 100%; height: 560px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--panel);
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 0 0 1px #000, 0 20px 60px rgba(0,0,0,.6);
+}
+.phone::before {
+  content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 70px; height: 6px; border-radius: 3px; background: var(--line);
+}
+.phone > * { min-width: 0; }
+.statusbar { font-family: var(--mono); font-size: 10px; color: var(--mute); display: flex; justify-content: space-between; padding-top: 14px; }
+
+.topbar { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.topbar svg { width: 26px; height: 26px; flex: none; }
+.topbar .name { font-weight: 700; letter-spacing: .3em; font-size: 16px; }
+.pill {
+  margin-left: auto; font-family: var(--mono); font-size: 10px;
+  border: 1px solid var(--crimson); color: var(--white); padding: 4px 8px;
+  display: inline-flex; gap: 6px; align-items: center; clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+}
+.dot { width: 6px; height: 6px; background: var(--crimson); border-radius: 50%; box-shadow: 0 0 0 0 rgba(255,29,78,.7); animation: pulse 1.8s infinite; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,29,78,.7) }
+  70% { box-shadow: 0 0 0 8px rgba(255,29,78,0) }
+  100% { box-shadow: 0 0 0 0 rgba(255,29,78,0) }
+}
+
+/* Chat */
+.transcript { flex: 1; font-family: var(--mono); font-size: 11px; line-height: 1.55; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.msg-user { color: var(--white); border-left: 2px solid var(--white); padding-left: 8px; }
+.tool { color: var(--crimson); }
+.tool-result { color: var(--mute); padding-left: 14px; }
+.agent { border: 1px solid var(--line); padding: 8px; background: rgba(255,255,255,.02); }
+.typing span { display: inline-block; width: 5px; height: 5px; margin-right: 4px; background: var(--crimson); animation: blink 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: .2s } .typing span:nth-child(3) { animation-delay: .4s }
+@keyframes blink { 0%,100% { opacity: .2 } 50% { opacity: 1 } }
+.composer { display: flex; gap: 8px; align-items: stretch; }
+.field {
+  flex: 1; min-width: 0; background: var(--obsidian); border: 1px solid var(--line);
+  color: var(--white); padding: 10px; font-family: var(--mono); font-size: 11px;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.field:focus, .field.active { outline: none; border-color: var(--crimson); box-shadow: 0 0 0 1px var(--crimson), 0 0 14px rgba(255,29,78,.35); }
+.btn {
+  background: var(--crimson); color: var(--obsidian); font-family: var(--display); font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; border: 0; padding: 10px 14px;
+  box-shadow: 0 0 18px rgba(255,29,78,.45);
+  transition: transform .08s cubic-bezier(.2,.9,.3,1.4), box-shadow .12s ease;
+}
+.btn:active { transform: scale(.96); }
+.btn.full { width: 100%; }
+
+/* Settings */
+.settings h3 { font-family: var(--display); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin: 4px 0 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: var(--mono); font-size: 10px; padding: 6px 9px; border: 1px solid var(--line); color: var(--mute);
+  transition: all .12s cubic-bezier(.2,.8,.2,1);
+}
+.chip.on { color: var(--obsidian); background: var(--white); border-color: var(--white); }
+.chip.on.crimson { background: var(--crimson); border-color: var(--crimson); box-shadow: 0 0 14px rgba(255,29,78,.6); animation: glow 2.4s ease-in-out infinite; }
+@keyframes glow { 50% { box-shadow: 0 0 2px rgba(255,29,78,.4) } }
+.note { font-family: var(--mono); font-size: 10px; color: var(--mute); line-height: 1.5; }
+.link { font-family: var(--mono); font-size: 10px; color: var(--crimson); text-decoration: none; border-bottom: 1px solid var(--crimson-dim); align-self: flex-start; }
+.stack { display: flex; flex-direction: column; gap: 8px; }
+
+/* Wallpaper */
+.wall {
+  width: 300px; max-width: 100%; aspect-ratio: 9 / 19.5; border-radius: 28px; overflow: hidden; position: relative; border: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255,29,78,.32), transparent 55%),
+    linear-gradient(180deg, #0A0A16 0%, #040407 100%);
+}
+.wall .grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.wall .owl-big { position: absolute; left: 50%; top: 34%; width: 150px; transform: translate(-50%, -50%); opacity: .9; filter: drop-shadow(0 0 22px rgba(255,29,78,.7)); }
+.wall .clock { position: absolute; top: 14%; width: 100%; text-align: center; font-weight: 700; font-size: 64px; letter-spacing: .06em; }
+.wall .date { position: absolute; top: calc(14% + 66px); width: 100%; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--mute); letter-spacing: .2em; text-transform: uppercase; }
+.wall .hline { position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,29,78,.6), transparent); }
+.wall .hline.a { top: 62%; } .wall .hline.b { top: 66%; opacity: .4; }
+.wall .vline { position: absolute; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,.18), transparent); }
+.wall .vline.a { left: 22%; } .wall .vline.b { left: 78%; }
+
+/* Animation strip */
+.motion { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.card { border: 1px solid var(--line); background: var(--panel); padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card h4 { margin: 0; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
+.card .spec { font-family: var(--mono); font-size: 10px; color: var(--mute); line-height: 1.5; }
+.sweep { height: 40px; position: relative; border: 1px solid var(--line); overflow: hidden; }
+.sweep::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -40%; background: linear-gradient(90deg, transparent, rgba(255,29,78,.5), transparent); animation: sweep 1.6s cubic-bezier(.6,0,.2,1) infinite; }
+@keyframes sweep { to { left: 100% } }
+.snap { height: 40px; background: var(--white); animation: snap 2.4s steps(1) infinite; }
+@keyframes snap { 0% { width: 0 } 50% { width: 100% } 100% { width: 0 } }
+.glowbox { height: 40px; border: 1px solid var(--crimson); animation: pulse 1.8s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Owl emblem, reused by <use> everywhere -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="owl" viewBox="0 0 64 64">
+    <polygon points="32,6 48,14 54,30 50,52 32,60 14,52 10,30 16,14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="miter"/>
+    <polygon points="16,14 20,3 27,12" fill="currentColor"/>
+    <polygon points="48,14 44,3 37,12" fill="currentColor"/>
+    <circle cx="23" cy="28" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="41" cy="28" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="23" cy="28" r="3" fill="#FF1D4E"/>
+    <circle cx="41" cy="28" r="3" fill="#FF1D4E"/>
+    <polygon points="29,36 35,36 32,42" fill="currentColor"/>
+    <line x1="10" y1="30" x2="16" y2="30" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="54" y1="30" x2="48" y2="30" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+</svg>
+
+<section>
+  <h2>01 · Brand</h2>
+  <div class="hero">
+    <div class="laser" aria-hidden="true"></div>
+    <svg class="owl" style="color:#F4F4F6" viewBox="0 0 64 64" aria-label="Tyto owl emblem"><use href="#owl"/></svg>
+    <h1 class="wordmark">TYTO</h1>
+    <div class="tagline">Code from your pocket · free models · GitHub</div>
+  </div>
+  <p class="note" style="margin-top:12px">Palette: obsidian #07070A · panel #0E0E14 · line #22222C · electric crimson #FF1D4E · stark white #F4F4F6. Type: Rajdhani (display) and JetBrains Mono (data).</p>
+</section>
+
+<section>
+  <h2>02 · Screens</h2>
+  <div class="row">
+
+    <!-- Splash -->
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>5G ▮</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;position:relative">
+        <div class="laser" style="position:absolute;top:0;left:0;right:0"></div>
+        <svg viewBox="0 0 64 64" style="width:110px;height:110px;color:#F4F4F6;filter:drop-shadow(0 0 16px rgba(255,29,78,.55))"><use href="#owl"/></svg>
+        <div style="font-weight:700;font-size:30px;letter-spacing:.42em;padding-left:.42em">TYTO</div>
+        <div class="label" style="font-size:10px">Loading agent core…</div>
+        <div class="sweep" style="width:160px"></div>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>5G ▮</span></div>
+      <div class="topbar">
+        <svg viewBox="0 0 64 64" style="color:#F4F4F6"><use href="#owl"/></svg>
+        <span class="name">TYTO</span>
+        <span class="pill"><span class="dot"></span>GEMINI</span>
+      </div>
+      <div class="stack" style="gap:6px">
+        <div class="label" style="font-size:10px">owner/repo · main</div>
+        <div class="field" style="padding:6px 8px">mohsen111-ai/tytobrowser2</div>
+      </div>
+      <div class="transcript">
+        <div class="msg-user">Add a dark-mode toggle to the settings page.</div>
+        <div class="tool">→ read_file settings.kt</div>
+        <div class="tool-result">← 412 chars</div>
+        <div class="tool">→ write_file settings.kt</div>
+        <div class="tool-result">← Committed settings.kt to main</div>
+        <div class="agent">Added a DARK MODE switch. One commit on main.</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+      <div class="composer">
+        <div class="field active">Ask Tyto…</div>
+        <button class="btn">Run</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="phone settings">
+      <div class="statusbar"><span>9:41</span><span>5G ▮</span></div>
+      <div class="topbar">
+        <svg viewBox="0 0 64 64" style="color:#F4F4F6"><use href="#owl"/></svg>
+        <span class="name">SETTINGS</span>
+      </div>
+      <div class="stack">
+        <h3>GitHub</h3>
+        <div class="field">•••••••••••• fine-grained</div>
+        <div class="note">Contents: read &amp; write, one repo.</div>
+      </div>
+      <div class="stack">
+        <h3>AI provider</h3>
+        <div class="chips">
+          <span class="chip">GEMINI</span>
+          <span class="chip on crimson">OPENROUTER</span>
+          <span class="chip">GROQ</span>
+          <span class="chip">QWEN</span>
+          <span class="chip">DEEPSEEK</span>
+          <span class="chip">KIMI</span>
+          <span class="chip">GPT</span>
+        </div>
+        <div class="note">Free models end in :free. Qwen, DeepSeek, Kimi and GPT-OSS are hosted here.</div>
+        <a class="link" href="#">GET A KEY ↗</a>
+      </div>
+      <div class="stack">
+        <h3>Model</h3>
+        <div class="field">qwen/qwen3-coder:free</div>
+      </div>
+      <button class="btn full" style="margin-top:auto">Save</button>
+    </div>
+
+    <!-- Provider picker detail -->
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>5G ▮</span></div>
+      <div class="topbar">
+        <svg viewBox="0 0 64 64" style="color:#F4F4F6"><use href="#owl"/></svg>
+        <span class="name">PROVIDERS</span>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="card" style="padding:12px;gap:6px"><div class="label" style="color:var(--crimson)">FREE TIER</div><div style="font-size:16px;letter-spacing:.08em">Gemini · Groq · OpenRouter</div><div class="note">Key only. No card needed for the free models.</div></div>
+        <div class="card" style="padding:12px;gap:6px"><div class="label">PAID · CHEAP</div><div style="font-size:16px;letter-spacing:.08em">DeepSeek · Kimi · GPT</div><div class="note">Separate API account, billed per token.</div></div>
+        <div class="card" style="padding:12px;gap:6px"><div class="label">STATUS</div><div class="note"><span class="dot" style="display:inline-block"></span>&nbsp; Key stored on device</div></div>
+      </div>
+      <div style="margin-top:auto;display:flex;gap:8px">
+        <div class="field" style="font-size:10px">Filter providers</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>03 · Wallpaper</h2>
+  <div class="row">
+    <div class="wall" aria-label="Tyto lock screen wallpaper">
+      <div class="grid"></div>
+      <div class="vline a"></div><div class="vline b"></div>
+      <div class="clock">09:41</div>
+      <div class="date">Tuesday · Tyto</div>
+      <svg class="owl-big" viewBox="0 0 64 64" style="color:#F4F4F6"><use href="#owl"/></svg>
+      <div class="hline a"></div><div class="hline b"></div>
+    </div>
+    <div class="stack" style="max-width:320px">
+      <div class="label">Lock screen · 9:19.5</div>
+      <p class="note" style="font-size:12px;line-height:1.6;color:var(--white)">Pitch-black base, a faint 28px tech grid that fades at the edges, two laser-cut vertical hairlines, and a crimson halo behind the owl. Keep the owl outline white so it stays crisp against the glow.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>04 · Motion</h2>
+  <div class="motion">
+    <div class="card"><h4>Laser scan</h4><div class="sweep"></div><div class="spec">Splash and hero. 3.2s, ease-in-out sweep, crimson core line.</div></div>
+    <div class="card"><h4>Neon pulse</h4><div class="glowbox"></div><div class="spec">Active provider, live status dot. 1.8s, expands 8px and fades.</div></div>
+    <div class="card"><h4>Snap cut</h4><div class="snap"></div><div class="spec">Chip selection: 120ms color change, no easing lag. Press: scale .96 in 80ms.</div></div>
+    <div class="card"><h4>Typing</h4><div class="typing" style="display:flex;gap:6px;height:40px;align-items:center"><span></span><span></span><span></span></div><div class="spec">Agent working. Three crimson ticks, staggered 200ms.</div></div>
+  </div>
+  <p class="note" style="margin-top:14px">All motion is disabled under prefers-reduced-motion. Nothing animates longer than 3.2s.</p>
+</section>
+
+</body>
+</html>
